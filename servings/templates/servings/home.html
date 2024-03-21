@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block title %} Bean Life {% endblock title%}
+{%block content%}
+<main>
+  <div>
+    <h1>My History</h1>
+    <p>I didn't choose the bean life, the bean life chose me.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Time of Serving</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs%}
+        <tr>
+          <td>log.log_id</td>
+          <td>log.time_of_serving</td>
+          <td>log.serving_type</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+
+{% endblock content%}

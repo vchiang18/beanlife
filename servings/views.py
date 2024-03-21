@@ -7,7 +7,12 @@ from django.http import HttpResponse
 # Create your views here.
 @login_required
 def home(request):
-    return HttpResponse("I didn't choose the bean life, the bean life chose me.")
+    logs = Log.objects.filter(user=request.user)
+    context = {
+        "logs": logs
+    }
+    return render(request, "servings/home.html", context)
+    # return HttpResponse("I didn't choose the bean life, the bean life chose me.")
 
 @login_required
 def create_log(request):
