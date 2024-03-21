@@ -17,10 +17,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+
+def redirect_to_dashboard(request):
+    return redirect("home")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("users.urls")),
-    path("", include("servings.urls")),
+    path("servings/", include("servings.urls")),
+    path("", redirect_to_dashboard),
+    path("users/", include("users.urls", namespace="users"))
 
 ]

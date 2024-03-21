@@ -23,10 +23,11 @@
 
           {% else %}
           <li>
-            <a href="{% url 'signup' %}">Sign Up</a>
+            <a href="{% url 'users:signup' %}">Sign Up</a>
           </li>
           <li>
-            <a href="{% url 'login' %}">Login</a>
+            {% comment %} <a href="{% url 'login' %}">Login</a> {% endcomment %}
+            <a href="{% url 'users:user_login' %}">Login</a>
           </li>
           {% endif %}
         </ul>
