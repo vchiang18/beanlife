@@ -15,9 +15,9 @@
       <tbody>
         {% for log in logs%}
         <tr>
-          <td>log.log_id</td>
-          <td>log.time_of_serving</td>
-          <td>log.serving_type</td>
+          <td><a href="{% url "view_log" log.log_id%}">{{log.log_id }}</a> </td>
+          <td>{{log.time_of_serving}}</td>
+          <td>{{log.serving_type}}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {%block title%} {{log.time_of_serving}} {% endblock
+title%} {% block content%}
+<body>
+  <main>
+    <form method="post">
+      {% csrf_token %} {{ recipe_form.as_p }}
+      <button>Save Edits</button>
+    </form>
+  </main>
+</body>
+{% endblock content%} {% load static %}

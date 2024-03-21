@@ -14,7 +14,7 @@ def home(request):
     return render(request, "servings/home.html", context)
     # return HttpResponse("I didn't choose the bean life, the bean life chose me.")
 
-# @login_required
+@login_required
 def create_log(request):
     if request.method == "POST":
         form = LogForm(request.POST)
@@ -31,12 +31,27 @@ def create_log(request):
     return render(request, "servings/log.html", context)
 
 @login_required
-def view_log(request):
-    pass
+def view_log(request, log_id):
+    print("log id: ", log_id)
+    log = get_object_or_404(Log, log_id=log_id)
+    context = {
+        "log": log
+    }
+    return render(request, "servings/detail.html", context)
 
 @login_required
-def edit_log(request):
-    pass
+def edit_log(request, log_id):
+    log = get_object_or_404(Log, log_id=log_id)
+    if request.method == "POST":
+        form = LogForm(request.POST, instance=log)
+        if form.is_valid():
+            form.save()
+            return redirect("view_log", log_id=log_id)
+    else:
+        form = LogForm(instance=log)
+    context = {"log_form": form,
+               "log": log}
+    return render(request, "servings/edit.html", context)
 
 @login_required
 def view_logs(request):
