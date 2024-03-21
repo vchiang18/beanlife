@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -10,7 +11,7 @@ class Log(models.Model):
         (FIBER, 'Fiber'),
         (FAT, 'Fat'),
     ]
-    time_of_serving = models.DateTimeField(auto_now_add=True)
+    time_of_serving = models.DateTimeField(default=timezone.now)
     serving_type = models.CharField(
         max_length=30,
         choices=SERVING_TYPE_CHOICES
