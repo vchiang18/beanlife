@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Bean Life {% endblock title%}
+{%block content%}
+<main>
+  <div>
+    <h1>Set Your Targets</h1>
+    <form method="post">
+      {% csrf_token %} {{form.as_p}}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</main>
+
+{% endblock content%}

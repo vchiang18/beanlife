@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth import get_user_model
-from users.forms import LoginForm, SignupForm
+from users.forms import LoginForm, SignupForm, TargetForm
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -57,3 +58,35 @@ def user_signup(request):
             "form": form,
         }
     return render(request, "registration/signup.html", context)
+
+@login_required
+def create_targets(request):
+    if request.method == "POST":
+        form = TargetForm(request.POST)
+        if form.is_valid():
+            target = form.save(False)
+            target.user = request.user
+            target.save()
+            return redirect("home")
+    else:
+        form = TargetForm()
+        context = {
+            "form": form,
+        }
+    return render(request, "registration/set_targets.html", context)
+
+@login_required
+def edit_targets(request, id):
+    target = get_object_or_404(User, id=id)
+    if request.method == "POST":
+        form = TargetForm(request.POST, instance=target)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    else:
+        form = TargetForm(instance=target)
+        context = {
+            "form": form,
+            "target": target
+        }
+    return render(request, "registration/edit_targets.html", context)

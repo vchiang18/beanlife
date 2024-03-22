@@ -36,7 +36,9 @@
           <li>
             <a href="{% url 'create_log' %}">Log Serving</a>
           </li>
-
+          <li>
+            <a href="{% url 'users:edit_targets' user.id %}">Your Targets</a>
+          </li>
           <li>
             <a href="{% url 'users:logout' %}">Logout</a>
           </li>
