@@ -4,6 +4,9 @@
 <html>
   <head>
     <title>{% block title%} {% endblock title%}</title>
+    <link rel="stylesheet" href="{% static "css/recipes.css" %}">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+  </head>
   </head>
   <body>
     <header>
@@ -34,5 +37,6 @@
       </nav>
     </header>
     {% block content%} {% endblock content%}
+    <footer>Made with <img class="heart" src="https://purepng.com/public/uploads/large/heart-icon-jst.png"> by the Bean Team</footer>
   </body>
 </html>
