@@ -7,7 +7,7 @@ from django.http import HttpResponse
 # Create your views here.
 @login_required
 def home(request):
-    logs = Log.objects.filter(user=request.user)
+    logs = Log.objects.filter(user=request.user).order_by("-time_of_serving")
     context = {
         "logs": logs
     }
@@ -45,7 +45,7 @@ def edit_log(request, log_id):
         form = LogForm(request.POST, instance=log)
         if form.is_valid():
             form.save()
-            return redirect("view_log", log_id=log_id)
+            return redirect("home")
     else:
         form = LogForm(instance=log)
     context = {"log_form": form,
