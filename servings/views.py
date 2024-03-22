@@ -12,7 +12,6 @@ def home(request):
         "logs": logs
     }
     return render(request, "servings/home.html", context)
-    # return HttpResponse("I didn't choose the bean life, the bean life chose me.")
 
 @login_required
 def create_log(request):
@@ -32,7 +31,7 @@ def create_log(request):
 
 @login_required
 def view_log(request, log_id):
-    print("log id: ", log_id)
+    print("view log id", log_id)
     log = get_object_or_404(Log, log_id=log_id)
     context = {
         "log": log
@@ -58,5 +57,7 @@ def view_logs(request):
     pass
 
 @login_required
-def delete_log(request):
-    pass
+def delete_log(request, log_id):
+    log = get_object_or_404(Log, log_id=log_id)
+    log.delete()
+    return redirect("home")
