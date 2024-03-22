@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 LOGIN_URL = 'users:user_login'
+USE_TZ = True
 
 # Application definition
 

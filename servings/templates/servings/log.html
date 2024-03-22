@@ -11,3 +11,35 @@
 </main>
 
 {% endblock content%}
+
+{% comment %} {% extends 'base.html' %} {% block title %} Log a Serving {% endblock title%}
+{%block content%}
+<main>
+  <div>
+    <h1>Create Log</h1>
+    <form method="post">
+      {% csrf_token % %}
+      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+        {% comment %} {{ form.time_of_serving }} {% endcomment %}
+        {% comment %} <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+      </div>
+      {{ form.serving_type }}
+      <button type="submit">Create</button>
+    </form>
+  </div>
+</main>
+
+{% endblock content%}
+
+{% block extrajs %}
+<script>
+  $(function () {
+    $("#datetimepicker1").datetimepicker({
+      format: 'DD/MM/YYYY HH:mm',
+    });
+  });
+</script>
+{% endblock extrajs %} {% endcomment %}

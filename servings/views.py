@@ -3,6 +3,7 @@ from .models import Log, Progress
 from servings.forms import LogForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+import datetime
 
 # Create your views here.
 @login_required
@@ -20,6 +21,8 @@ def create_log(request):
         if form.is_valid():
             log = form.save(False)
             log.user = request.user
+            # date: datetime.date = form.cleaned_data["time_of_serving"]
+            # date_output = date.strftime("%d %b %Y")
             log.save()
             return redirect("home")
     else:

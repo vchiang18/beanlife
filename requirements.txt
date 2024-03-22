@@ -4,6 +4,7 @@ click==8.1.7
 colorama==0.4.6
 cssbeautifier==1.15.1
 Django==5.0.3
+django-tempus-dominus==5.1.2.17
 djlint==1.34.1
 EditorConfig==0.12.4
 flake8==7.0.0
@@ -18,6 +19,7 @@ pathspec==0.12.1
 platformdirs==4.2.0
 pycodestyle==2.11.1
 pyflakes==3.2.0
+pytz==2024.1
 PyYAML==6.0.1
 regex==2023.12.25
 six==1.16.0

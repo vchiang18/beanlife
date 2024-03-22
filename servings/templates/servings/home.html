@@ -7,7 +7,6 @@
     <table>
       <thead>
         <tr>
-          {% comment %} <th>ID</th> {% endcomment %}
           <th>Time of Serving</th>
           <th>Type</th>
           <th>Actions</th>
@@ -16,7 +15,6 @@
       <tbody>
         {% for log in logs%}
         <tr>
-          {% comment %} <td><a href="{% url "view_log" log.log_id%}">{{log.log_id }}</a> </td> {% endcomment %}
           <td>{{log.time_of_serving}}</td>
           <td>{{log.serving_type}}</td>
           <td><a href="{% url "edit_log" log.log_id%}">Edit</a> <a href="{% url "delete_log" log.log_id%}">Delete</a> </td>
