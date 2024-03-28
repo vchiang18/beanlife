@@ -5,7 +5,7 @@ from users.views import user_login, user_logout, user_signup, create_targets, ed
 app_name = 'users'
 
 urlpatterns = [
-    path("login/", user_login, name="user_login"),
+    path("login/", user_login, name="login"),
     path("logout/", user_logout, name="logout"),
     path("signup/", user_signup, name="signup"),
     path("<int:id>/targets/create", create_targets, name="create_targets"),

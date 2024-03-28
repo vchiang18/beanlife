@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth import get_user_model
 from users.forms import LoginForm, SignupForm, TargetForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 User = get_user_model()
 
@@ -32,7 +33,8 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect("login")
+    # return HttpResponse("Logged out, see you soon!")
+    return redirect("home")
 
 
 def user_signup(request):

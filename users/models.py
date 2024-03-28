@@ -10,4 +10,4 @@ class User(AbstractUser):
     default='UTC')
     servings_fiber = models.PositiveIntegerField(default=3)
     servings_fat = models.PositiveIntegerField(default=1)
-    separate_fats = models.BooleanField(default=False)
+    separate_fats = models.BooleanField(default=True)
