@@ -2,7 +2,6 @@ from django.db import models
 from users.models import User
 from django.utils import timezone
 
-
 # Create your models here.
 class Log(models.Model):
     FIBER = 'fiber'
@@ -18,6 +17,11 @@ class Log(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     log_id = models.AutoField(primary_key=True)
+
+    def time_elapsed(self):
+        now = timezone.now()
+        difference = now - self.time_of_serving
+        return difference.total_seconds() / 60   #converts seconds to minutes
 
     def __str__(self):
         return f"{self.user.username} - {self.log_id}"
