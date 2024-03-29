@@ -4,6 +4,13 @@ from servings.forms import LogForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
+from django.conf import settings
+
+#function to get user's timezone
+def get_user_timezone(request):
+    user_timezone = getattr(request.user, 'timezone', None)
+    return user_timezone if user_timezone else settings.DEFAULT_TIME_ZONE
+
 
 # Create your views here.
 @login_required

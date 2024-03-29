@@ -25,5 +25,6 @@ class TargetForm(forms.ModelForm):
         fields = [
             'servings_fiber',
             'servings_fat',
-            'separate_fats'
+            'separate_fats',
+            'timezone'
         ]

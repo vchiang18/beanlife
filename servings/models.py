@@ -17,11 +17,12 @@ class Log(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     log_id = models.AutoField(primary_key=True)
+    current_time = models.DateTimeField(default=timezone.now)
 
     def time_elapsed(self):
         now = timezone.now()
         difference = now - self.time_of_serving
-        return difference.total_seconds() / 60   #converts seconds to minutes
+        return difference.total_seconds() / 3600   #converts seconds to minutes
 
     def __str__(self):
         return f"{self.user.username} - {self.log_id}"

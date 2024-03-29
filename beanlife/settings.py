@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 LOGIN_URL = 'users:login'
-USE_TZ = True
 
 # Application definition
 
@@ -106,12 +105,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# Internationalization & timezone
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
