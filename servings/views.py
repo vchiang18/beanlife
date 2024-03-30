@@ -5,6 +5,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
 from django.conf import settings
+from .tasks import test_func
+from celery.schedules import crontab
+# from django_celery_beat.models import PeriodicTask, CrontabSchedule
+
+#celery test
+def celery_test(request):
+    test_func.delay()
+    return HttpResponse("Done")
 
 #function to get user's timezone
 def get_user_timezone(request):

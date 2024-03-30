@@ -34,6 +34,7 @@ LOGIN_URL = 'users:login'
 INSTALLED_APPS = [
     "servings.apps.ServingsConfig",
     "users.apps.UsersConfig",
+    # "django-celery-results",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -127,3 +128,25 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CELERY SETTINGS
+
+broker_url = 'redis://127.0.0.1:6379'
+accept_content = ['json']
+result_serializer = 'json'
+task_serializer = 'json'
+timezone = 'America/Los_Angeles'
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+#CELERY BEAT
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# SMTP Settings
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER ='priyanshuguptacontact@gmail.com'
+# EMAIL_HOST_PASSWORD = "cgdjtyuzsqcuorfi"
+DEFAULT_FROM_EMAIL = 'The Bean Team'
