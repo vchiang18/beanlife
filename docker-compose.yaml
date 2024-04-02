@@ -1,0 +1,23 @@
+version: '3'
+
+volumes:
+  bean-db:
+    external: true
+
+services:
+  # db:
+  #   image: sqlite:latest
+  #   volumes:
+  #     - ./data:/data
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+       - ./data:/data
+    environment:
+      - SQLITE_DB_PATH=/data/db.sqlite3
+    # depends_on:
+    #   - db

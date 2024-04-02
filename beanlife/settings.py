@@ -34,13 +34,15 @@ LOGIN_URL = 'users:login'
 INSTALLED_APPS = [
     "servings.apps.ServingsConfig",
     "users.apps.UsersConfig",
+    "django_celery_results",
+    "django_celery_beat",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django-celery-results",
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -82,7 +84,7 @@ WSGI_APPLICATION = "beanlife.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "data/db.sqlite3",
     }
 }
 
@@ -137,10 +139,10 @@ result_serializer = 'json'
 task_serializer = 'json'
 timezone = 'America/Los_Angeles'
 
-CELERY_RESULT_BACKEND = 'django-db'
+result_backend = 'django-db'
 
 #CELERY BEAT
-# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # SMTP Settings
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

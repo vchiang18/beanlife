@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from users.forms import LoginForm, SignupForm, TargetForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
 # from rest_framework import status
@@ -63,6 +64,13 @@ def user_signup(request):
             "form": form,
         }
     return render(request, "registration/signup.html", context)
+
+# @require_http_methods(["POST", "PUT"])
+# def api_targets(request):
+#     if request.method == "POST":
+#         pass
+#     elif request.method == "PUT":
+#         #validation servings must be at least 1
 
 @login_required
 def create_targets(request):
