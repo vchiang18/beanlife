@@ -133,7 +133,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CELERY SETTINGS
 
-broker_url = 'redis://127.0.0.1:6379'
+# broker_url = 'redis://127.0.0.1:6379' #for venv
+broker_url = 'redis://redis:6379/0'
 accept_content = ['json']
 result_serializer = 'json'
 task_serializer = 'json'
@@ -152,3 +153,9 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # EMAIL_HOST_USER ='priyanshuguptacontact@gmail.com'
 # EMAIL_HOST_PASSWORD = "cgdjtyuzsqcuorfi"
 DEFAULT_FROM_EMAIL = 'The Bean Team'
+
+
+# Redis settings
+REDIS_HOST = os.environ.get('REDIS_HOST')
+# REDIS_HOST = "127.0.0.1"
+REDIS_PORT = 6379

@@ -7,7 +7,15 @@ from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanlife.settings')
 
-app = Celery('beanlife', broker='redis://localhost:6379/0')
+print("environ: /n/n/n", os.environ.get('REDIS_HOST'))
+
+# redis_var = f"redis//{os.environ.get('REDIS_HOST')}:6379/0"
+# app = Celery('beanlife', broker=redis_var)
+
+# redis_var = "redis//%s:6379/0" % os.environ.get('REDIS_HOST')
+app = Celery('beanlife', broker="redis//%s/0" % os.environ.get('REDIS_HOST'))
+
+
 app.conf.update(timezone = 'America/Los_Angeles',
                        enable_utc=True,
                        broker_connection_retry_on_startup=True)

@@ -8,6 +8,7 @@ from django.conf import settings
 from .tasks import test_func
 from celery.schedules import crontab
 # from django_celery_beat.models import PeriodicTask, CrontabSchedule
+import os
 
 #celery test
 def celery_test(request):
@@ -27,6 +28,7 @@ def home(request):
     context = {
         "logs": logs
     }
+    print("environ: /n/n/n", os.environ.get('REDIS_HOST'))
     return render(request, "servings/home.html", context)
 
 @login_required

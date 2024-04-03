@@ -5,19 +5,40 @@ volumes:
     external: true
 
 services:
-  # db:
-  #   image: sqlite:latest
-  #   volumes:
-  #     - ./data:/data
-
   backend:
     build: .
     ports:
       - "8000:8000"
     volumes:
       - .:/app
-       - ./data:/data
+      - bean-db:/data
+
     environment:
       - SQLITE_DB_PATH=/data/db.sqlite3
-    # depends_on:
-    #   - db
+      # - REDIS_HOST="redis:6379"
+      # - REDIS_HOST=redis  figure out how to reference IP address dynamically correctly
+    depends_on:
+      - redis
+    networks:
+      - redis-network
+
+  celery:
+    build: .
+    command: celery -A beanlife worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    networks:
+      - redis-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-network
+
+networks:
+  redis-network:
+    driver: bridge
