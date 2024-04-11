@@ -5,10 +5,13 @@ from celery import Celery
 from django.conf import settings
 # from celery.schedules import crontab
 
+print("environ: /n/n/n", os.environ)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanlife.settings')
 app = Celery('beanlife')
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
-app.conf.broker_url = f'redis://{redis_host}:6379/0'
+# app.conf.broker_url = f'redis://172.18.0.2:6379/0' #this one works!
+# redis_host = os.environ.get('REDIS_HOST', 'localhost') #not using env var -- can delete
+
+app.conf.broker_url = f'redis://redis:6379/0'
 
 #prior versions tried
 # print("environ: /n/n/n", os.environ.get('REDIS_HOST'))

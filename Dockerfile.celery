@@ -1,0 +1,12 @@
+#using same base image as main Dockerfile
+FROM python:3.10-bullseye
+ENV PYTHONUNBUFFERED 1
+
+RUN python -m pip install --upgrade pip
+
+WORKDIR /app
+COPY . /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Set the command to start the Celery worker
+CMD ["celery", "-A", "beanlife", "worker", "-l", "info"]

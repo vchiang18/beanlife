@@ -15,6 +15,7 @@ services:
 
     environment:
       - SQLITE_DB_PATH=/data/db.sqlite3
+      #delete this too, not using
       - REDIS_HOST=redis  #figure out how to reference IP address dynamically correctly
       # - REDIS_HOST=${redis}
       # - REDIS_HOST="redis:6379"
@@ -24,7 +25,9 @@ services:
       - redis-network
 
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.celery
     command: celery -A beanlife worker -l info
     volumes:
       - .:/app
@@ -39,6 +42,7 @@ services:
       - "6379:6379"
     networks:
       - redis-network
+    # container_name: redis_container
 
 networks:
   redis-network:
