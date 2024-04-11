@@ -133,9 +133,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CELERY SETTINGS
 
-# broker_url = 'redis://127.0.0.1:6379' #for venv
-# broker_url = 'redis://redis:6379/0' #doesn't seem to work? 4.11
-broker_url = 'redis://localhost:6379/0'
+# broker_url = 'redis://redis:6379/0'  #not nec bc specific in celery.py for docker
 accept_content = ['json']
 result_serializer = 'json'
 task_serializer = 'json'

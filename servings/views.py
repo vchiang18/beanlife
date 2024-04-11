@@ -28,7 +28,6 @@ def home(request):
     context = {
         "logs": logs
     }
-    print("environ: /n/n/n", os.environ)
     return render(request, "servings/home.html", context)
 
 @login_required

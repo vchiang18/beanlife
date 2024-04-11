@@ -5,10 +5,9 @@ from celery import Celery
 from django.conf import settings
 # from celery.schedules import crontab
 
-print("environ: /n/n/n", os.environ)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanlife.settings')
 app = Celery('beanlife')
-app.conf.broker_url = f'redis://redis:6379/0'
+app.conf.broker_url = 'redis://redis:6379/0'
 
 
 app.conf.update(timezone = 'America/Los_Angeles',
