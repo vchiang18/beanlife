@@ -15,8 +15,9 @@ services:
 
     environment:
       - SQLITE_DB_PATH=/data/db.sqlite3
+      - REDIS_HOST=redis  #figure out how to reference IP address dynamically correctly
+      # - REDIS_HOST=${redis}
       # - REDIS_HOST="redis:6379"
-      # - REDIS_HOST=redis  figure out how to reference IP address dynamically correctly
     depends_on:
       - redis
     networks:
