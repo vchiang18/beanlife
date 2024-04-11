@@ -8,18 +8,7 @@ from django.conf import settings
 print("environ: /n/n/n", os.environ)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanlife.settings')
 app = Celery('beanlife')
-# app.conf.broker_url = f'redis://172.18.0.2:6379/0' #this one works!
-# redis_host = os.environ.get('REDIS_HOST', 'localhost') #not using env var -- can delete
-
 app.conf.broker_url = f'redis://redis:6379/0'
-
-#prior versions tried
-# print("environ: /n/n/n", os.environ.get('REDIS_HOST'))
-# redis_var = f"redis//{os.environ.get('REDIS_HOST')}:6379/0"
-# app = Celery('beanlife', broker=redis_var)
-
-# redis_var = "redis//%s:6379/0" % os.environ.get('REDIS_HOST')
-# app = Celery('beanlife', broker="redis//%s/0" % os.environ.get('REDIS_HOST'))
 
 
 app.conf.update(timezone = 'America/Los_Angeles',
