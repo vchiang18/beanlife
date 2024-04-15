@@ -113,8 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/New_York'
-# TIME_ZONE = 'America/Los_Angeles'
+# TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -140,6 +140,7 @@ task_serializer = 'json'
 timezone = 'America/Los_Angeles'
 
 result_backend = 'django-db'
+CELERY_TASK_TRACK_STARTED = True
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

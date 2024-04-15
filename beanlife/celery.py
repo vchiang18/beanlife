@@ -11,6 +11,8 @@ app.conf.update(timezone = 'America/Los_Angeles',
                        enable_utc=True,
                        broker_connection_retry_on_startup=True,
                        result_backend='django-db',
+                       result_extended=True,
+                    #    include=['servings.tasks',],
                        )
 
 app.config_from_object(settings, namespace='CELERY')
