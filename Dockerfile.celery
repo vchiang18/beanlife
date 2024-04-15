@@ -9,4 +9,5 @@ COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the command to start the Celery worker
-CMD ["celery", "-A", "beanlife", "worker", "-l", "info"]
+CMD ["celery", "-A", "beanlife", "worker", "-l", "info", "-B"]
+# CMD celery -A beanlife worker -l info -B
