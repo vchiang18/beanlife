@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -151,7 +153,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='beanlife.app@gmail.com'
-EMAIL_HOST_PASSWORD = "vmquwaanzipbxndt"
+# EMAIL_HOST_PASSWORD="srzfrvpndxeydfzh"  #first pw
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = "iwpylcosnmfjccxl"
 DEFAULT_FROM_EMAIL = 'The Bean Team'
 
 

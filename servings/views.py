@@ -5,20 +5,21 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
 from django.conf import settings
-from .tasks import test_func, send_email_task
+from .tasks import test_task, send_email_task
 from celery.schedules import crontab
+from beanlife.settings import EMAIL_HOST_PASSWORD
 # from django_celery_beat.models import PeriodicTask, CrontabSchedule
 import os
 
 #celery test
 def celery_test(request):
-    test_func.delay()
+    test_task.delay()
     return HttpResponse("Done")
 
 #email test
 def send_email(request):
     send_email_task.delay()
-    # send_email(request)
+    print(EMAIL_HOST_PASSWORD)
     return HttpResponse("Sent")
 
 #function to get user's timezone
