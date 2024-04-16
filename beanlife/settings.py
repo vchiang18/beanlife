@@ -146,16 +146,15 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # SMTP Settings
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER ='priyanshuguptacontact@gmail.com'
-# EMAIL_HOST_PASSWORD = "cgdjtyuzsqcuorfi"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='beanlife.app@gmail.com'
+EMAIL_HOST_PASSWORD = "vmquwaanzipbxndt"
 DEFAULT_FROM_EMAIL = 'The Bean Team'
 
 
 # Redis settings
 REDIS_HOST = os.environ.get('REDIS_HOST')
-# REDIS_HOST = "127.0.0.1"
 REDIS_PORT = 6379
