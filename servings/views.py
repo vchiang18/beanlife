@@ -8,7 +8,7 @@ from django.conf import settings
 from .tasks import test_task, send_email_task
 from celery.schedules import crontab
 from beanlife.settings import EMAIL_HOST_PASSWORD
-# from django_celery_beat.models import PeriodicTask, CrontabSchedule
+from django_celery_beat.models import PeriodicTask, CrontabSchedule
 import os
 
 #celery test
@@ -21,6 +21,12 @@ def send_email(request):
     send_email_task.delay()
     # print(EMAIL_HOST_PASSWORD)
     return HttpResponse("Sent")
+
+#schedule task test
+def schedule_email(request):
+    schedule, created = CrontabSchedule.objects.get_or_create(hour = 1, minute = 34)
+    task = PeriodicTask.objects.create(crontab=schedule, name="schedule_mail_task_"+"5", task='send_mail_app.tasks.send_mail_func')#, args = json.dumps([[2,3]]))
+    return HttpResponse("Done")
 
 #function to get user's timezone
 def get_user_timezone(request):

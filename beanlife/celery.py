@@ -29,7 +29,8 @@ app.conf.beat_schedule = {
         'task': 'servings.tasks.send_email_task',
         'schedule': crontab(hour=17, minute=43, day_of_month=16, month_of_year = 4),
         #'args': (2,)
-    }
+    },
+
 
 }
 
