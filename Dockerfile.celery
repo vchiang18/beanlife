@@ -1,16 +1,7 @@
-#using same base image as main Dockerfile
-FROM python:3.10-bullseye
-ENV PYTHONUNBUFFERED 1
+# # build and run beat container
+# docker build -t beanlife-beat -f Dockerfile.celerybeat .
+# docker run -d beanlife-beat
 
-RUN python -m pip install --upgrade pip
-RUN python -m pip install python-dotenv
-
-WORKDIR /app
-COPY . /app/
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Set the command to start the Celery worker
-CMD celery -A beanlife worker -l info -B beat
-
-# CMD celery -A beanlife beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-# CMD celery -A beanlife worker -l info
+# # build and run worker container
+# docker build -t beanlife-worker -f Dockerfile.celeryworker .
+# docker run -d beanlife-worker

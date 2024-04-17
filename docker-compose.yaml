@@ -20,11 +20,25 @@ services:
     networks:
       - redis-network
 
-  celery:
+  celery_worker:
     build:
       context: .
-      dockerfile: Dockerfile.celery
+      dockerfile: Dockerfile.celeryworker
+    image: beanlife_celery_worker
     command: celery -A beanlife worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    networks:
+      - redis-network
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.celerybeat
+    image: beanlife_celery_beat
+    command: celery -A beanlife beat -l info
     volumes:
       - .:/app
     depends_on:

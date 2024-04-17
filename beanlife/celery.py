@@ -27,7 +27,7 @@ def debug_task(self):
 app.conf.beat_schedule = {
     'send-email-after-90m': {
         'task': 'servings.tasks.send_email_task',
-        'schedule': crontab(hour=16, minute=56, day_of_month=16, month_of_year = 4),
+        'schedule': crontab(hour=17, minute=43, day_of_month=16, month_of_year = 4),
         #'args': (2,)
     }
 
