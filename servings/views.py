@@ -19,7 +19,7 @@ def celery_test(request):
 #email test
 def send_email(request):
     send_email_task.delay()
-    print(EMAIL_HOST_PASSWORD)
+    # print(EMAIL_HOST_PASSWORD)
     return HttpResponse("Sent")
 
 #function to get user's timezone
