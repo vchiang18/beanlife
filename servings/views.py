@@ -10,6 +10,8 @@ from celery.schedules import crontab
 from beanlife.settings import EMAIL_HOST_PASSWORD
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
 import os
+from django.utils.timezone import activate
+from pytz import timezone
 
 #celery test
 def celery_test(request):
@@ -24,8 +26,16 @@ def send_email(request):
 
 #schedule task test
 def schedule_email(request):
-    schedule, created = CrontabSchedule.objects.get_or_create(hour = 1, minute = 34)
-    task = PeriodicTask.objects.create(crontab=schedule, name="schedule_mail_task_"+"5", task='send_mail_app.tasks.send_mail_func')#, args = json.dumps([[2,3]]))
+    activate(timezone('America/Los_Angeles'))
+    schedule, created = CrontabSchedule.objects.get_or_create(hour = 17, minute = 38,
+            timezone='America/Los_Angeles'
+            )
+    #name below needs to be unique, such as w user_id
+    task = PeriodicTask.objects.create(
+        crontab=schedule,
+        name="schedule_email_task"+"11",
+        task='servings.tasks.send_email_task',
+        )#, args = json.dumps([[2,3]]))
     return HttpResponse("Done")
 
 #function to get user's timezone
