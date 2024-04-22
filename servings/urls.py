@@ -11,7 +11,7 @@ urlpatterns = [
     path("sendemail/", send_email, name="send_email"),
     path("schedtest/", schedule_email, name="schedule_email"),
 
-    path("logs/", api_logs, name="api_log"),
+    path("logs/", api_logs, name="api_logs"),
     # path("logs/<int:log_id>", api_log, name="api_log"),
 
 
