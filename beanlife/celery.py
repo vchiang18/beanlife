@@ -27,12 +27,12 @@ def debug_task(self):
 app.conf.beat_schedule = {
     'send-email-test': {
         'task': 'servings.tasks.send_email_task',
-        'schedule': crontab(hour=17, minute=43, day_of_month=16, month_of_year = 4),
+        'schedule': crontab(hour=11, minute=10, day_of_month=18, month_of_year = 4),
         'timezone': 'America/Los_Angeles'
         #'args': (2,)
     },
     'send-email-after-90m': {
-        'task': 'servings.tasks.send_email_task',
+        'task': 'servings.tasks.send_90m_alert',
         'schedule': crontab(minute="*/5"),
         'timezone': 'America/Los_Angeles'
         #'args': (2,)

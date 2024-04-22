@@ -27,14 +27,14 @@ def send_email(request):
 #schedule task test
 def schedule_email(request):
     activate(timezone('America/Los_Angeles'))
-    schedule, created = CrontabSchedule.objects.get_or_create(hour = 17, minute = 38,
+    schedule, created = CrontabSchedule.objects.get_or_create(hour = 11, minute = 11,
             timezone='America/Los_Angeles'
             )
     #name below needs to be unique, such as w user_id
     task = PeriodicTask.objects.create(
         crontab=schedule,
-        name="schedule_email_task"+"11",
-        task='servings.tasks.send_email_task',
+        name="schedule_email_task"+"14",
+        task='servings.tasks.send_90m_alert',
         )#, args = json.dumps([[2,3]]))
     return HttpResponse("Done")
 
