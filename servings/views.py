@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Log, Progress
+from users.models import User
 from servings.forms import LogForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
+from django.http import HttpResponse, JsonResponse
+from rest_framework.authtoken.models import Token
 import datetime
 from django.conf import settings
 from .tasks import test_task, send_email_task
@@ -10,9 +13,25 @@ from celery.schedules import crontab
 from beanlife.settings import EMAIL_HOST_PASSWORD
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
 import os
+import json
 from django.utils.timezone import activate
 from pytz import timezone
+from common.json import ModelEncoder
 
+class UserEncoder(ModelEncoder):
+    model = User
+    properties = ["id",
+                  "username"]
+
+class LogEncoder(ModelEncoder):
+    model = Log
+    properties = ["time_of_serving",
+                  "user",
+                  "log_id"
+                ]
+    encoders = {"user": UserEncoder()}
+
+#CELERY
 #celery test
 def celery_test(request):
     test_task.delay()
@@ -44,14 +63,40 @@ def get_user_timezone(request):
     return user_timezone if user_timezone else settings.DEFAULT_TIME_ZONE
 
 
-# Create your views here.
+#APIs - no login required
+@require_http_methods(["GET", "POST"])
+def api_logs(request):
+    if request.method == "GET":
+        user = Token.objects.get(key=request.META.get("HTTP_AUTHORIZATION")).user
+        logs = user.logs.all().order_by("-time_of_serving")
+        return JsonResponse({"logs": logs}, encoder=LogEncoder, safe=False)
+    else:
+        content = json.loads(request.body)
+        # add try except blocks?
+        log = Log.objects.create(**content)
+        return JsonResponse(
+            log,
+            encoder=LogEncoder,
+            safe=False
+        )
+
+#token-based auth example
+# @require_http_methods(["GET", "POST"])
+# def api_log(request):
+#     if request.method == "GET":
+#         user = Token.objects.get(key=request.META.get("HTTP_AUTHORIZATION")).user
+#         logs = Log.objects.filter(user=request.user).order_by("-time_of_serving")
+#     else:
+#         pass
+
+#template-based views
 @login_required
 def home(request):
     logs = Log.objects.filter(user=request.user).order_by("-time_of_serving")
     context = {
         "logs": logs
     }
-    return render(request, "servings/home.html", context)
+    return render(request, "servings/home.html", {"logs": logs})
 
 @login_required
 def create_log(request):
