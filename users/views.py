@@ -5,11 +5,22 @@ from users.forms import LoginForm, SignupForm, TargetForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework import status
 
 User = get_user_model()
+
+#testing rest framework
+@authentication_classes([authentication.TokenAuthentication])
+@permission_classes([permissions.IsAuthenticated])
+class UserListView(APIView):
+    def get(self,request, format=None):
+        usernames = [user.username for user in User.objects.all()]
+        return Response(usernames)
+
 
 # Create your views here.
 def user_login(request):

@@ -18,6 +18,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from rest_framework.authtoken.views import obtain_auth_token
+
 
 def redirect_to_dashboard(request):
     return redirect("home")
@@ -26,6 +28,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("servings/", include("servings.urls")),
     path("", redirect_to_dashboard),
-    path("users/", include("users.urls", namespace="users"))
+    path("users/", include("users.urls", namespace="users")),
+    path("gettoken/", obtain_auth_token),
+
 
 ]
