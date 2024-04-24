@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
 from django.conf import settings
-from .tasks import test_task, send_email_task
+from .tasks import test_task
 from celery.schedules import crontab
 from beanlife.settings import EMAIL_HOST_PASSWORD
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
@@ -18,23 +18,24 @@ def celery_test(request):
     test_task.delay()
     return HttpResponse("Done")
 
-#email test
-def send_email(request):
-    send_email_task.delay()
-    # print(EMAIL_HOST_PASSWORD)
-    return HttpResponse("Sent")
+# #email test
+# def send_email(request):
+#     send_email_task.delay()
+#     # print(EMAIL_HOST_PASSWORD)
+#     return HttpResponse("Sent")
 
 #schedule task test
 def schedule_email(request):
     activate(timezone('America/Los_Angeles'))
-    schedule, created = CrontabSchedule.objects.get_or_create(hour = 17, minute = 38,
+    schedule, created = CrontabSchedule.objects.get_or_create(hour = 15, minute = 50,
+                                                              day_of_month = 24, month_of_year = 4,
             timezone='America/Los_Angeles'
             )
     #name below needs to be unique, such as w user_id
     task = PeriodicTask.objects.create(
         crontab=schedule,
-        name="schedule_email_task"+"11",
-        task='servings.tasks.send_email_task',
+        name="4.24.a",
+        task='servings.tasks.send_90m_email',
         )#, args = json.dumps([[2,3]]))
     return HttpResponse("Done")
 

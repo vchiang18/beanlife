@@ -14,14 +14,20 @@ def test_task(self):
         print(i)
     return "Done"
 
-@shared_task(bind=True)
-def send_email_task(self):
-    users = get_user_model().objects.all()
-    #timezone.localtime(users.date_time) + timedelta(days=2)
-    for user in users:
-        mail_subject = "Celery Testing"
-        message = "It's been 90m since your last serving. You're clear for more fats or fiber!"
-        to_email = user.username
+#serving alert - filters for current time + 90m
+@shared_task
+def send_90m_email():
+    #datetime.now() or timezone.now()? test
+    threshold_time = timezone.now() - timedelta(minutes=90)
+    print("threshold time: ", threshold_time)
+
+    logs_to_email = Log.objects.filter(time_of_serving__lte=threshold_time)
+    print("users to email: ", logs_to_email)
+
+    for log in logs_to_email:
+        mail_subject = "90m alert"
+        message = f"Log ID: {log.pk}\n\nTime of Serving: {log.time_of_serving}\n\nThis is a 90m alert."
+        to_email = log.user.username
         send_mail(
             subject = mail_subject,
             message=message,

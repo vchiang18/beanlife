@@ -7,5 +7,4 @@ WORKDIR /app
 COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# CMD python manage.py migrate && python manage.py runserver "0.0.0.0:8000"
-CMD celery -A beanlife worker -l info -B & python manage.py migrate && python manage.py runserver "0.0.0.0:8000"
+CMD python manage.py migrate && python manage.py runserver "0.0.0.0:8000"

@@ -24,20 +24,20 @@ def debug_task(self):
     print(f'Request: {self.request!r}')
 
 # # Celery Beat Settings
-app.conf.beat_schedule = {
-    'send-email-test': {
-        'task': 'servings.tasks.send_email_task',
-        'schedule': crontab(hour=17, minute=43, day_of_month=16, month_of_year = 4),
-        'timezone': 'America/Los_Angeles'
-        #'args': (2,)
-    },
-    'send-email-after-90m': {
-        'task': 'servings.tasks.send_email_task',
-        'schedule': crontab(minute="*/5"),
-        'timezone': 'America/Los_Angeles'
-        #'args': (2,)
-    },
+# app.conf.beat_schedule = {
+#     'send-email-test': {
+#         'task': 'servings.tasks.send_email_task',
+#         'schedule': crontab(hour=17, minute=43, day_of_month=16, month_of_year = 4),
+#         'timezone': 'America/Los_Angeles'
+#         #'args': (2,)
+#     },
+#     'send-email-after-90m': {
+#         'task': 'servings.tasks.send_email_task',
+#         'schedule': crontab(minute="*/5"),
+#         'timezone': 'America/Los_Angeles'
+#         #'args': (2,)
+#     },
 
-}
+# }
 
 # Celery Schedules - https://docs.celeryproject.org/en/stable/reference/celery.schedules.html
