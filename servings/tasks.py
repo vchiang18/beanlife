@@ -5,6 +5,7 @@ from beanlife import settings
 from django.utils import timezone
 from datetime import timedelta
 from celery.schedules import crontab
+from .models import Log
 
 
 @shared_task(bind=True)
