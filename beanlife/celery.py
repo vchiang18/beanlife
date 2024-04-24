@@ -4,6 +4,7 @@ from celery import Celery
 from django.conf import settings
 from celery.schedules import crontab
 
+#initalize celery app
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanlife.settings')
 app = Celery('beanlife')
 app.conf.broker_url = 'redis://redis:6379/0'
@@ -13,31 +14,18 @@ app.conf.update(timezone = 'America/Los_Angeles',
                        result_backend='django-db',
                        result_extended=True,
                        include=['servings.tasks',],
+                       CELERYD_CONCURRENCY=1
                        )
 
 app.config_from_object(settings, namespace='CELERY')
 
+#import tasks from registered django app modules
 app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
 
-# # Celery Beat Settings
-# app.conf.beat_schedule = {
-#     'send-email-test': {
-#         'task': 'servings.tasks.send_email_task',
-#         'schedule': crontab(hour=11, minute=10, day_of_month=18, month_of_year = 4),
-#         'timezone': 'America/Los_Angeles'
-#         #'args': (2,)
-#     },
-#     'send-email-after-90m': {
-#         'task': 'servings.tasks.send_90m_alert',
-#         'schedule': crontab(minute="*/5"),
-#         'timezone': 'America/Los_Angeles'
-#         #'args': (2,)
-#     },
 
-# }
 
 # Celery Schedules - https://docs.celeryproject.org/en/stable/reference/celery.schedules.html

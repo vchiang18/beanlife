@@ -10,8 +10,8 @@
           <th>Time of Serving</th>
           <th>Type</th>
           <th>Actions</th>
-          <th>Time Elapsed</th>
-          <th>Current Time</th>
+          <!-- <th>Time Elapsed</th>
+          <th>Current Time</th> -->
         </tr>
       </thead>
       <tbody>
@@ -20,8 +20,8 @@
           <td>{{log.time_of_serving}}</td>
           <td>{{log.serving_type}}</td>
           <td><a href="{% url "edit_log" log.log_id%}">Edit</a> <a href="{% url "delete_log" log.log_id%}">Delete</a> </td>
-          <td>{{ log.time_elapsed|floatformat:"0" }} </td>
-          <td>{{log.current_time}}</td>
+          <!-- <td>{{ log.time_elapsed|floatformat:"0" }} </td>
+          <td>{{log.current_time}}</td> -->
         </tr>
         {% endfor %}
       </tbody>

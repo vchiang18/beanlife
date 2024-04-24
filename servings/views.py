@@ -6,17 +6,19 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse, JsonResponse
 from rest_framework.authtoken.models import Token
-import datetime
 from django.conf import settings
-from .tasks import test_task, send_email_task
+# from .tasks import test_task, send_email_task
 from celery.schedules import crontab
 from beanlife.settings import EMAIL_HOST_PASSWORD
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
 import os
 import json
 from django.utils.timezone import activate
+from django.utils import timezone
 from pytz import timezone
 from common.json import ModelEncoder
+from datetime import datetime, timedelta
+
 
 class UserEncoder(ModelEncoder):
     model = User
@@ -32,29 +34,31 @@ class LogEncoder(ModelEncoder):
     encoders = {"user": UserEncoder()}
 
 #CELERY
-#celery test
-def celery_test(request):
-    test_task.delay()
-    return HttpResponse("Done")
+# #celery test
+# def celery_test(request):
+#     test_task.delay()
+#     return HttpResponse("Done")
 
-#email test
-def send_email(request):
-    send_email_task.delay()
-    # print(EMAIL_HOST_PASSWORD)
-    return HttpResponse("Sent")
+# #email test
+# def send_email(request):
+#     send_email_task.delay()
+#     # print(EMAIL_HOST_PASSWORD)
+#     return HttpResponse("Sent")
 
-#schedule task test
+
+# #schedule task test
 def schedule_email(request):
     activate(timezone('America/Los_Angeles'))
-    schedule, created = CrontabSchedule.objects.get_or_create(hour = 11, minute = 11,
+    schedule, created = CrontabSchedule.objects.get_or_create(hour = 16, minute = 49,
+                                                              month_of_year = 4, day_of_month = 23,
             timezone='America/Los_Angeles'
             )
     #name below needs to be unique, such as w user_id
     task = PeriodicTask.objects.create(
         crontab=schedule,
-        name="schedule_email_task"+"14",
-        task='servings.tasks.send_90m_alert',
-        )#, args = json.dumps([[2,3]]))
+        name="4-23.e",
+        task='servings.tasks.send_90m_email',
+        )
     return HttpResponse("Done")
 
 #function to get user's timezone
@@ -104,6 +108,18 @@ def create_log(request):
         form = LogForm(request.POST)
         if form.is_valid():
             log = form.save(False)
+
+            # #converts time_of_serving into user's timezone
+            # datetime_from_user = form.cleaned_data['time_of_serving']
+            # user_timezone = request.user.timezone
+
+            # server_timezone = timezone.get_default_timezone()  # Get the server's timezone
+            # user_timezone_obj = pytz.timezone(user_timezone)  # Get the user's timezone object
+            # aware_datetime = user_timezone_obj.localize(datetime_from_user)  # Make the datetime aware in the user's timezone
+            # converted_datetime = aware_datetime.astimezone(server_timezone)
+
+            # log.time_of_serving = aware_datetime
+
             log.user = request.user
             log.save()
             return redirect("home")
