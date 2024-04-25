@@ -18,6 +18,7 @@ class Log(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     log_id = models.AutoField(primary_key=True)
     current_time = models.DateTimeField(default=timezone.now)
+    alert_sent = models.BooleanField(default=False)
 
     def time_elapsed(self):
         now = timezone.now()

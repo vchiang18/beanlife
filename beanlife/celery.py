@@ -29,10 +29,10 @@ app.conf.beat_schedule = {
         'task': 'servings.tasks.send_90m_email',
         'schedule': crontab(hour=16, minute=41, day_of_month=24, month_of_year = 4)
     },
-    #     'send-email-after-90m': {
-    #     'task': 'servings.tasks.send_90m_email',
-    #     'schedule': crontab(minute="*/5"),
-    # }
+        'send-email-after-90m': {
+        'task': 'servings.tasks.send_90m_email',
+        'schedule': crontab(minute="*/5"),
+    }
 
 }
 

@@ -10,6 +10,7 @@ class Log (admin.ModelAdmin):
         "user",
         "log_id",
         "time_of_serving",
+        "alert_sent"
     ]
 
 @admin.register(Progress)

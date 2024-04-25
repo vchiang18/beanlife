@@ -6,6 +6,7 @@ from django.utils import timezone
 from datetime import timedelta
 from celery.schedules import crontab
 from .models import Log
+from django.core.cache import cache
 
 
 @shared_task(bind=True)
@@ -18,11 +19,10 @@ def test_task(self):
 #serving alert - filters for current time + 90m
 @shared_task
 def send_90m_email():
-    #datetime.now() or timezone.now()? test
     threshold_time = timezone.now() - timedelta(minutes=90)
     print("threshold time: ", threshold_time)
 
-    logs_to_email = Log.objects.filter(time_of_serving__lte=threshold_time)
+    logs_to_email = Log.objects.filter(time_of_serving__lte=threshold_time, alert_sent=False)
     print("users to email: ", logs_to_email)
 
     for log in logs_to_email:
@@ -36,4 +36,7 @@ def send_90m_email():
             recipient_list=[to_email],
             fail_silently=True,
         )
+        log.alert_sent=True
+        log.save()
+
     return "Done"
