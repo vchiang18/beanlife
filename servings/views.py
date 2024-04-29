@@ -39,10 +39,10 @@ def schedule_email(request):
         )#, args = json.dumps([[2,3]]))
     return HttpResponse("Done")
 
-#function to get user's timezone
-def get_user_timezone(request):
-    user_timezone = getattr(request.user, 'timezone', None)
-    return user_timezone if user_timezone else settings.DEFAULT_TIME_ZONE
+# #function to get user's timezone
+# def get_user_timezone(request):
+#     user_timezone = getattr(request.user, 'timezone', None)
+#     return user_timezone if user_timezone else settings.DEFAULT_TIME_ZONE
 
 
 # Create your views here.
@@ -102,3 +102,6 @@ def delete_log(request, log_id):
     log = get_object_or_404(Log, log_id=log_id)
     log.delete()
     return redirect("home")
+
+def welcome(request):
+    return render(request, "servings/welcome.html")

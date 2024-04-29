@@ -1,0 +1,61 @@
+.welcome {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    justify-items: center;
+    align-items: center;
+    background-color: #AEC6C2;
+    font: #1a3fd0;
+}
+
+.welcome-header {
+    grid-column-start: 3;
+    grid-column-end: 10;
+    grid-row-start: 2;
+    text-align: center;
+}
+
+.welcome-text {
+    text-align: center;
+}
+
+.welcome-button {
+    grid-column-start: 6;
+    grid-column-end: 7;
+    grid-row-start: 3;
+    text-align: center;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Libre Baskerville', serif;
+}
+
+h5 {
+    font-family: "Courier Prime", monospace;
+}
+
+.courier-prime-regular {
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .courier-prime-bold {
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .courier-prime-regular-italic {
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .courier-prime-bold-italic {
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: italic;
+  }
