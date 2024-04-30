@@ -1,6 +1,7 @@
 .welcome {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    /* grid-template-rows: auto */
     grid-template-rows: repeat(6, 1fr);
     justify-items: center;
     align-items: center;
