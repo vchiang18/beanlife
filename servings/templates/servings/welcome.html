@@ -13,14 +13,20 @@
   <body>
     <main class="welcome">
         <div>
-            <h5>WELCOME</h5>
+            <div class="welcome-header">
+              <h5 >WELCOME</h5>
+            </div>
             <h1>The Bean Life helps you thrive on a whole-foods, fiber-based healing protocol.</h1>
         </div>
-        <div>
-        <p>"(placeholder image)"</p>
-        </div>
-        <div></div>
-    </main>
 
+        <div class="container">
+          <div class="circular-progress">
+            <span class="progress-value">0%</span>
+          </div>
+          <span class="progress-text">loading</span>
+      </div>
+
+    </main>
+    <script src="{% static 'servings/index.js' %}"></script>
   </body>
 </html>
