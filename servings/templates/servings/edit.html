@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
-{%block title%}
-  Editing log - {{log.time_of_serving}}
-{% endblock title%}
+{% extends "base.html" %}
+{% block title %}
+  Editing log - {{ log.time_of_serving }}
+{% endblock title %}
 
-{% block content%}
+{% block content %}
 <body>
   <main>
-    <h1> Edit log: {{log.log_id}}</h1>
+    <h1> Edit log: {{ log.log_id }}</h1>
     <form method="post">
       {% csrf_token %}
       {{ log_form.as_p }}
@@ -14,5 +14,5 @@
     </form>
   </main>
 </body>
-{% endblock content%}
+{% endblock content %}
 {% load static %}
