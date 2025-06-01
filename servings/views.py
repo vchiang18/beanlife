@@ -12,6 +12,8 @@ from django_celery_beat.models import PeriodicTask, CrontabSchedule
 import os
 from django.utils.timezone import activate
 from pytz import timezone
+import django.utils.timezone as dj_timezone  #for daily_progres view function
+
 
 #celery test
 def celery_test(request):
@@ -105,3 +107,21 @@ def delete_log(request, log_id):
 
 def welcome(request):
     return render(request, "servings/welcome.html")
+
+@login_required
+def user_progress_today(request):
+    today = dj_timezone.now().date()
+    logs_today = Log.objects.filter(user=request.user, time_of_serving__date=today)
+
+    fiber_count = logs_today.filter(serving_type=Log.FIBER).count()
+    fat_count = logs_today.filter(serving_type=Log.FAT).count()
+
+    context = {
+        "fiber_actual": fiber_count,
+        "fat_actual": fat_count,
+        "fiber_target": request.user.servings_fiber,
+        "fat_target": request.user.servings_fat
+
+    }
+
+    return render(request, "servings/daily_progress.html", context)

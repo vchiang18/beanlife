@@ -2,7 +2,6 @@ version: '3'
 
 volumes:
   bean-db:
-    external: true
 
 services:
   backend:
